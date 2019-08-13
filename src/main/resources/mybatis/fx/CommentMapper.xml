@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.fx.comment.mapper.CommentMapper">
+    
+    <resultMap type="Comment" id="CommentResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="commentContent"    column="comment_content"    />
+        <result property="userName"    column="user_name"    />
+        <result property="userId"    column="user_id"    />
+        <result property="commentTime"    column="comment_time"    />
+    </resultMap>
+	
+	<sql id="selectCommentVo">
+        select id, create_time, update_time, comment_content, user_name, user_id, comment_time from fx_comment
+    </sql>
+	
+    <select id="selectCommentList" parameterType="Comment" resultMap="CommentResult">
+        <include refid="selectCommentVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+             <if test="updateTime != null "> and update_time = #{updateTime}</if>
+             <if test="commentContent != null  and commentContent != '' "> and comment_content = #{commentContent}</if>
+             <if test="userName != null  and userName != '' "> and user_name = #{userName}</if>
+             <if test="userId != null "> and user_id = #{userId}</if>
+             <if test="commentTime != null "> and comment_time = #{commentTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectCommentById" parameterType="Integer" resultMap="CommentResult">
+        <include refid="selectCommentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertComment" parameterType="Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into fx_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createTime != null  ">create_time,</if>
+			<if test="updateTime != null  ">update_time,</if>
+			<if test="commentContent != null  and commentContent != ''  ">comment_content,</if>
+			<if test="userName != null  and userName != ''  ">user_name,</if>
+			<if test="userId != null  ">user_id,</if>
+			<if test="commentTime != null  ">comment_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createTime != null  ">#{createTime},</if>
+			<if test="updateTime != null  ">#{updateTime},</if>
+			<if test="commentContent != null  and commentContent != ''  ">#{commentContent},</if>
+			<if test="userName != null  and userName != ''  ">#{userName},</if>
+			<if test="userId != null  ">#{userId},</if>
+			<if test="commentTime != null  ">#{commentTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateComment" parameterType="Comment">
+        update fx_comment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+            <if test="updateTime != null  ">update_time = #{updateTime},</if>
+            <if test="commentContent != null  and commentContent != ''  ">comment_content = #{commentContent},</if>
+            <if test="userName != null  and userName != ''  ">user_name = #{userName},</if>
+            <if test="userId != null  ">user_id = #{userId},</if>
+            <if test="commentTime != null  ">comment_time = #{commentTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteCommentById" parameterType="Integer">
+        delete from fx_comment where id = #{id}
+    </delete>
+	
+    <delete id="deleteCommentByIds" parameterType="String">
+        delete from fx_comment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
