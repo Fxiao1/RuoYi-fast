@@ -9,7 +9,7 @@ ruoyi:
   # 实例演示开关
   demoEnabled: true
   # 文件路径
-  profile: D:/profile/
+  profile: D:/appData/projects/downloadFile/
   # 获取ip地址开关
   addressEnabled: true
 
