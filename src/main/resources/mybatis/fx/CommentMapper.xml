@@ -15,19 +15,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectCommentVo">
-        select id, create_time, update_time, comment_content, user_name, user_id, comment_time from fx_comment
+        select id, create_time, update_time, comment_content, user_name, user_id, comment_time,product_code,del_flage from fx_comment
     </sql>
 	
     <select id="selectCommentList" parameterType="Comment" resultMap="CommentResult">
         <include refid="selectCommentVo"/>
         <where>  
             <if test="id != null "> and id = #{id}</if>
-             <if test="createTime != null "> and create_time = #{createTime}</if>
-             <if test="updateTime != null "> and update_time = #{updateTime}</if>
-             <if test="commentContent != null  and commentContent != '' "> and comment_content = #{commentContent}</if>
-             <if test="userName != null  and userName != '' "> and user_name = #{userName}</if>
-             <if test="userId != null "> and user_id = #{userId}</if>
-             <if test="commentTime != null "> and comment_time = #{commentTime}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+            <if test="commentContent != null  and commentContent != '' "> and comment_content = #{commentContent}</if>
+            <if test="userName != null  and userName != '' "> and user_name = #{userName}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="commentTime != null "> and comment_time = #{commentTime}</if>
+            <if test="productCode !=null ">and product_code= #{productCode}</if>
+            <if test="1==1">and del_flage=#{delFlage}</if>
          </where>
     </select>
     

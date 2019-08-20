@@ -1,6 +1,8 @@
 package com.ruoyi.project.fx.comment.service;
 
 import com.ruoyi.project.fx.comment.domain.Comment;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -50,5 +52,23 @@ public interface CommentService
      * @return 结果
      */
 	public int deleteCommentByIds(String ids);
+	/**
+	 * 通过url 导入评论到数据库
+	 * @Author Fxiao
+	 * @Description
+	 * @Date 18:25 2019/8/16
+	 * @param url
+	 * @return void
+	 **/
+	public void importCommentByUrl(String url);
+	/**
+	 * 生成下载词云
+	 * @Author Fxiao
+	 * @Description
+	 * @Date 17:52 2019/8/18
+	 * @param productCode 产品代号
+	 * @return void
+	 **/
+	public void downloadWordFrequency(String productCode) throws IOException;
 	
 }

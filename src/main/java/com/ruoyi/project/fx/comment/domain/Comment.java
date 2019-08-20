@@ -25,8 +25,28 @@ public class Comment extends BaseEntity
 	private Integer userId;
 	/** 评论时间 */
 	private Date commentTime;
+	/**产品代号*/
+	private String productCode;
+	/**删除标记*/
+	private int delFlage;
 
-	public void setId(Integer id) 
+	public int getDelFlage() {
+		return delFlage;
+	}
+
+	public void setDelFlage(int delFlage) {
+		this.delFlage = delFlage;
+	}
+
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}

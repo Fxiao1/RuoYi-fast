@@ -284,6 +284,19 @@
 			<version>${poi.version}</version>
 		</dependency>
 
+		<!--词云-->
+		<dependency>
+			<groupId>com.kennycason</groupId>
+			<artifactId>kumo-core</artifactId>
+			<version>1.13</version>
+		</dependency>
+		<!--词云中文支持-->
+		<dependency>
+			<groupId>com.kennycason</groupId>
+			<artifactId>kumo-tokenizers</artifactId>
+			<version>1.12</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,5 +1,6 @@
 package com.ruoyi.project.fx.comment.controller;
 
+import java.io.IOException;
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class CommentController extends BaseController
 	{
 	    return prefix + "/add";
 	}
-	
+
 	/**
 	 * 新增保存用户评论
 	 */
@@ -84,10 +85,24 @@ public class CommentController extends BaseController
 	@Log(title = "用户评论", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Comment comment)
-	{		
+	public AjaxResult addSave(Comment comment) {
 		return toAjax(commentService.insertComment(comment));
 	}
+
+    /**
+     * 通过url导入用户评论
+     * @Author Fxiao
+     * @Description
+     * @Date 18:11 2019/8/16
+     * @param importUrl
+     * @return java.lang.String
+     **/
+    @PostMapping("import")
+    @ResponseBody
+    public AjaxResult iportByUrl(String importUrl){
+        commentService.importCommentByUrl(importUrl);
+        return toAjax(true);
+    }
 
 	/**
 	 * 修改用户评论
@@ -123,5 +138,14 @@ public class CommentController extends BaseController
 	{		
 		return toAjax(commentService.deleteCommentByIds(ids));
 	}
-	
+	@ResponseBody
+	@GetMapping("wordFrequency")
+	public AjaxResult wordFrequency(String productcode){
+		try {
+			commentService.downloadWordFrequency(productcode);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return toAjax(true);
+	}
 }
